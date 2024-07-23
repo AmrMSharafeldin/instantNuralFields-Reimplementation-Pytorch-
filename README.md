@@ -7,7 +7,7 @@ This repository contains a PyTorch reimplementation of the paper "Instant Neural
 ![Instant Neural Fields](https://via.placeholder.com/400x200)  
 *Figure 1: Instant Neural Fields illustration.*
 
-![Results](https://via.placeholder.com/400x200)  
+![Results](resutls/1400-epoches.png)  
 
 
 ## Run the notebook in Collab 
