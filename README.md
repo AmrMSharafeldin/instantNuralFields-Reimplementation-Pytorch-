@@ -4,10 +4,10 @@
 
 This repository contains a PyTorch reimplementation of the paper "Instant Neural Graphics Primitives with a Multiresolution Hash Encoding" by Müller et al.
 
-![Instant Neural Fields](resutls/hash_figure.png)  
+![Instant Neural Fields](resutls/training_prgress.gif)  
 *Figure 1: Instant Neural Fields illustration.*
 
-![Results](resutls/1400-epoches.png)  
+![Results](resutls/render.gif)  
 
 
 ## Run the notebook in Collab 
