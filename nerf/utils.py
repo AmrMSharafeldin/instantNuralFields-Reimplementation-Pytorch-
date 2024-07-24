@@ -196,38 +196,52 @@ def pose_spherical(theta, radius):
 
 
 
-def setup_data_loaders(data_path, batch_size , custom = True , data_set_train = None , data_set_test = None):
+def setup_data_loaders(data_path, batch_size , custom = True , train_path = None , test_path = None):
     # Load training and warmup data
     if custom:
         o, d, target_px_values = load_custom_data(data_path, mode='train')
 
         # Load test data
         test_o, test_d, test_px = load_custom_data(data_path, mode='test')
-    else : 
-        o , d , target_px_values = data_set_train
-        test_o, test_d, test_px = data_set_test
-    # Create DataLoader for training
-    train_data = torch.cat((
-        torch.from_numpy(o).reshape(-1, 3).float(),
-        torch.from_numpy(d).reshape(-1, 3).float(),
-        torch.from_numpy(target_px_values).reshape(-1, 3).float()
-    ), dim=1)
-    
-    dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 
-    # Create DataLoader for warmup
-    o_warmup = torch.from_numpy(o).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
-    d_warmup = torch.from_numpy(d).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
-    target_px_values_warmup = torch.from_numpy(target_px_values).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
+        # Create DataLoader for training
+        train_data = torch.cat((
+            torch.from_numpy(o).reshape(-1, 3).float(),
+            torch.from_numpy(d).reshape(-1, 3).float(),
+            torch.from_numpy(target_px_values).reshape(-1, 3).float()
+        ), dim=1)
+        
+        dataloader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+
+        # Create DataLoader for warmup
+        o_warmup = torch.from_numpy(o).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
+        d_warmup = torch.from_numpy(d).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
+        target_px_values_warmup = torch.from_numpy(target_px_values).reshape(90, 400, 400, 3)[:, 100:300, 100:300, :].reshape(-1, 3).float()
+        
+        warmup_data = torch.cat((
+            o_warmup,
+            d_warmup,
+            target_px_values_warmup
+        ), dim=1)
+        
+        dataloader_warmup = DataLoader(warmup_data, batch_size=batch_size, shuffle=True)
     
-    warmup_data = torch.cat((
-        o_warmup,
-        d_warmup,
-        target_px_values_warmup
-    ), dim=1)
-    
-    dataloader_warmup = DataLoader(warmup_data, batch_size=batch_size, shuffle=True)
-    
+    else:
+        training_dataset = torch.from_numpy(np.load(train_path,
+                                            allow_pickle=True))
+        
+        testing_dataset = np.load(test_path,
+                                            allow_pickle=True)
+        
+        o = training_dataset[:, :3]
+        d = training_dataset[:, 3:6]
+        target_px_values = training_dataset[:, 6:]
+
+        test_o = testing_dataset[:, :3]
+        test_d = testing_dataset[:, 3:6]
+        test_px = testing_dataset[:, 6:]
+        dataloader = DataLoader(training_dataset, batch_size=batch_size, shuffle=True)
+        dataloader_warmup = None
 
     
     return dataloader, dataloader_warmup, (test_o, test_d, test_px)
