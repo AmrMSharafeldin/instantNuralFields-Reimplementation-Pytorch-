@@ -10,18 +10,18 @@ from nerf.utils import trilinear_interpolation
 
 class NGLOD(torch.nn.Module):
 
-    def __init__(self, base_lod , num_lod, L, scene_scale, feature_dim):
+    def __init__(self, base_lod, num_lod ,  L, scene_scale, feature_dim):
         super(NGLOD, self).__init__()
         self.device = self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
         self.feature_dim = feature_dim
+        self.LODS = [2**L for L in range(base_lod, base_lod + num_lod)]
         self.L = L  # For encoding directions
         self.scene_scale = scene_scale
         self.codebook = nn.ParameterList([])
-        self.LODS = [2**L for L in range(base_lod, base_lod + num_lod)]
         print(self.LODS)
         self.init_feature_structure()
-        self.sigma_mlp = nn.Sequential(nn.Linear(self.feature_dim * len(self.LODS), 64),
+        self.sigma_mlp = nn.Sequential(nn.Linear(self.feature_dim * len(Nl), 64),
                                          nn.ReLU(), nn.Linear(64, 16)).to(self.device)
 
         self.pred_color_mlp = nn.Sequential(nn.Linear((L-1)**3 + 16, 64), nn.ReLU(),
