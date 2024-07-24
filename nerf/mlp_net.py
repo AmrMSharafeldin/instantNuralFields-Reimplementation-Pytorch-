@@ -10,7 +10,7 @@ from nerf.utils import trilinear_interpolation
 
 
 
-class Hash(torch.nn.Module):
+class TinyMLP(torch.nn.Module):
     def __init__(self, LODS, L, scene_scale, desc=2):
       pass
 
