@@ -9,7 +9,7 @@ from tqdm import tqdm
 from nerf.volume_renderer import volume_renderer
 
 from nerf.eval import test
-from utils import * 
+from nerf.utils import * 
 
 class NerfTrainRunner:
     def __init__(self, model, optimizer, scheduler, near, far, nb_bins, max_epoches, data_loader, test_o,test_d ,test_target , batch_size ,checkpoints_path, loss_fn = mse ):
