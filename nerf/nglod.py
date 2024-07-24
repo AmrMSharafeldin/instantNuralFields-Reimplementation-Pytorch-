@@ -21,7 +21,7 @@ class NGLOD(torch.nn.Module):
         self.LODS = [2**L for L in range(base_lod, base_lod + num_lod)]
         print(self.LODS)
         self.init_feature_structure()
-        self.sigma_mlp = nn.Sequential(nn.Linear(self.feature_dim * len(Nl), 64),
+        self.sigma_mlp = nn.Sequential(nn.Linear(self.feature_dim * len(self.LODS), 64),
                                          nn.ReLU(), nn.Linear(64, 16)).to(self.device)
 
         self.pred_color_mlp = nn.Sequential(nn.Linear((L-1)**3 + 16, 64), nn.ReLU(),
