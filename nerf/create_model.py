@@ -29,7 +29,7 @@ def create_model(model_type , params):
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
     elif model_type == "nglod":
-        model = NGLOD (base_lod, num_lod, scene_scale=3 , L = 4 , feature_dim = feature_dim)
+        model = NGLOD (2**2, 3, scene_scale=3 , L = 4 , feature_dim = 4)
         optimizer = torch.optim.Adam(
     [{"params": model.codebook.parameters(), "lr": 1e-2, "betas": (0.9, 0.99), "eps": 1e-15, "weight_decay": 0.},
       {"params": model.sigma_mlp.parameters(), "lr": 1e-2,  "betas": (0.9, 0.99), "eps": 1e-15, "weight_decay": 10**-6},
