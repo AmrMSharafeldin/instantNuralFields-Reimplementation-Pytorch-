@@ -14,7 +14,6 @@ class Plenoxels(torch.nn.Module):
     def __init__(self, LODS, L, scene_scale, feature_dim=2):
         super(Plenoxels, self).__init__()
         self.feature_dim = feature_dim
-        print("hello")
         self.L = L  # For PE encoding
         self.scene_scale = scene_scale
         self.codebook = nn.ParameterList([])
