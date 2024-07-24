@@ -11,9 +11,10 @@ from nerf.utils import trilinear_interpolation
 
 class Plenoxels(torch.nn.Module):
 
-    def __init__(self, LODS, L, scene_scale, desc=2):
+    def __init__(self, LODS, L, scene_scale, feature_dim=2):
         super(Plenoxels, self).__init__()
-        self.desc = desc
+        self.feature_dim = feature_dim
+        print("hello")
         self.L = L  # For PE encoding
         self.scene_scale = scene_scale
         self.codebook = nn.ParameterList([])
@@ -24,7 +25,7 @@ class Plenoxels(torch.nn.Module):
 
     def init_feature_structure(self):
       for LOD in self.LODS:
-          fts = torch.zeros(LOD**3, self.desc)
+          fts = torch.zeros(LOD**3, self.feature_dim)
           fts += torch.randn_like(fts) * 0.01
           fts = nn.Parameter(fts)
           self.codebook.append(fts)
