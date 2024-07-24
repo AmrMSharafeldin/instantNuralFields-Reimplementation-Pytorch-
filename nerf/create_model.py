@@ -12,6 +12,7 @@ def create_model(model_type , params):
     num_lod = params.get('num_lod')
 
     gamma = params.get('gamma')
+    lr = params.get('lr')
 
 
     
