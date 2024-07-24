@@ -10,18 +10,18 @@ from nerf.utils import trilinear_interpolation
 
 class NGLOD(torch.nn.Module):
 
-    def __init__(self, base_lod, num_lod ,  L, scene_scale, feature_dim):
+    def __init__(self, base_lod, num_lod, L, scene_scale, desc=2):
         super(NGLOD, self).__init__()
         self.device = self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
-        self.feature_dim = feature_dim
-        self.LODS = [2**L for L in range(base_lod, base_lod + num_lod)]
+        self.desc = desc
         self.L = L  # For encoding directions
         self.scene_scale = scene_scale
         self.codebook = nn.ParameterList([])
+        self.LODS = [2**L for L in range(base_lod, base_lod + num_lod)]
         print(self.LODS)
         self.init_feature_structure()
-        self.sigma_mlp = nn.Sequential(nn.Linear(self.feature_dim * len(Nl), 64),
+        self.sigma_mlp = nn.Sequential(nn.Linear(self.desc * len(Nl), 64),
                                          nn.ReLU(), nn.Linear(64, 16)).to(self.device)
 
         self.pred_color_mlp = nn.Sequential(nn.Linear((L-1)**3 + 16, 64), nn.ReLU(),
@@ -38,7 +38,7 @@ class NGLOD(torch.nn.Module):
 
     def init_feature_structure(self):
       for LOD in self.LODS:
-          fts = torch.zeros(LOD**3, self.feature_dim)
+          fts = torch.zeros(LOD**3, self.desc)
           fts += torch.randn_like(fts) * 0.01
           fts = nn.Parameter(fts)
           self.codebook.append(fts)
@@ -54,7 +54,7 @@ class NGLOD(torch.nn.Module):
           features = trilinear_interpolation(res, self.codebook[i], pts[mask], "NGLOD")
           feats.append((torch.unsqueeze(features, dim=-1)))
         all_features = torch.cat(feats, -1)
-        all_features = all_features.reshape(-1, self.feature_dim * len(self.LODS))
+        all_features = all_features.reshape(-1, self.desc * len(self.LODS))
         embdeded_dics = self.positional_encoding(d[mask])
         h = self.sigma_mlp(all_features)
         color = torch.zeros((pts.shape[0], 3), device=pts.device)
