@@ -9,11 +9,10 @@ Neural Geometric Level of Detail: Real-time Rendering with Implicit 3D Shapes by
 Instant Neural Graphics Primitives with a Multiresolution Hash Encoding" by Müller et al
 
 
-## Poster
+## Introduction
 
-![Description of the image](media/slide1.gif)
+![Input -> output](media/slide1.gif)
 
-Your introduction text goes here. You can describe the image or reference it as needed.
 
 ## Running 
 
