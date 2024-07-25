@@ -19,22 +19,22 @@ Instant Neural Graphics Primitives with a Multiresolution Hash Encoding" by Mül
 
 In Google Collab  copy the following cells : 
 
-bash
+```bash
 !git clone https://github.com/AmrMohamedSharaf/instantNuralFields-Reimplementation-Pytorch-.git
 %cd instantNuralFields-Reimplementation-Pytorch-
 !pip install -r requirements.txt
-
-bash
+```
+```bash
 from nerf.create_model import create_model
 from nerf.utils import setup_data_loaders
 from nerf.model_trainer import NerfTrainRunner
 from nerf.eval import eval
-
+````
 
 
 Adjust the parameters (These are the ones used in the demo videos):
 
-bash
+```bash
 L = 4
 near = 8
 far = 12
@@ -60,30 +60,32 @@ model_params = {
     'num_lod': num_lod,
     'batch_size': batch_size
   }
-
+````
 
 Select the model type:
 
-bash
+```bash
 model_types = ['plenoxels' ,'nglod' , 'mlp' , 'hash']
 model , optimizer , scheduler = create_model( model_types[#your Index here] ,model_params )
-
+````
 
 Load the data :
 
-bash
+```bash
 dataloader , dataloader_warmup ,test_data = setup_data_loaders(data_path, batch_size)
 test_o, test_d, test_px = test_data
 
+````
 
 Train  (The demo was train on T4 GPU)
-bash
+```bash
 trainer = NerfTrainRunner(model, optimizer, scheduler, near, far, nb_bins, nb_epochs, dataloader,
                           test_o[0], test_d[0],test_px[0] ,batch_size, checkpoints_path = None)
 trainer.run()
-
+````
 
  360 video:
 
-bash
+```bash
 eval(model , test_o[6] , test_d[6])
+````
