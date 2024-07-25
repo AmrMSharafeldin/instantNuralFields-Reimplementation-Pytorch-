@@ -93,5 +93,5 @@ eval(model , test_o[6] , test_d[6])
 
 ## Presentation
 
-![Input -> output](media/slide1.gif)
+![](media/slides.gif)
 ![Input -> output](media/nglod.gif)
