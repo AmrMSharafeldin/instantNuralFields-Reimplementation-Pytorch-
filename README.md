@@ -105,4 +105,5 @@ eval(model , test_o[6] , test_d[6])
 - [ ] Extned the Dense Grid implementation (NGLOD) to Hash Grids (InstantNGPs)
 
 - [ ] Train on different data sets
-- [ ] Add a setup.py file 
+- [ ] Add a setup.py file
+- [ ] Add citations at each slide
