@@ -13,7 +13,7 @@ Instant Neural Graphics Primitives with a Multiresolution Hash Encoding" by Mül
 
 ## Introduction
 
-(media/slide1.gif)
+!(media/slide1.gif)
 
 Your introduction text goes here. You can describe the image or reference it as needed.
 
