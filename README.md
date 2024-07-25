@@ -84,13 +84,14 @@ trainer = NerfTrainRunner(model, optimizer, scheduler, near, far, nb_bins, nb_ep
 trainer.run()
 ````
 
-## Presentation
-
-![Input -> output](media/slide1.gif)
-![Input -> output](media/nglod.gif)
 
  360 video:
 
 ```bash
 eval(model , test_o[6] , test_d[6])
 ````
+
+## Presentation
+
+![Input -> output](media/slide1.gif)
+![Input -> output](media/nglod.gif)
