@@ -94,3 +94,8 @@ eval(model , test_o[6] , test_d[6])
 ## Presentation
 
 ![](media/slides.gif)
+
+## TO DO :
+-[]Implement the MLP baseline (for benchmarking) 
+-[]Extned the Dense Grid implementation (NGLOD) to Hash Grids (InstantNGPs)
+-[]Train on different data sets
