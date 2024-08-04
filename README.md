@@ -107,3 +107,4 @@ eval(model , test_o[6] , test_d[6])
 - [ ] Train on different data sets
 - [ ] Add a setup.py file
 - [ ] Add citations at each slide
+- [ ] Use the tinyCuda lib for more accelerated training
